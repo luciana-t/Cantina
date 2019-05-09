@@ -6,17 +6,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 public class Inicio extends AppCompatActivity {
-    Fragment f1 = fragmento1.newInstance();
-    Fragment f2 = fragmento2.newInstance();
-    Fragment f3 = fragmento3.newInstance();
+    Fragment f1 = Mensal_1.newInstance();
+    Fragment f2 = Checkin_2.newInstance();
+    Fragment f3 = Extrato_3.newInstance();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        public boolean onNavigationItemSelected(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                 {
@@ -59,7 +60,8 @@ public class Inicio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
-
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         confirmFireMissiles(); //IMPORTANTE!!!!!!!!!!!!!!!!!!!!
     }

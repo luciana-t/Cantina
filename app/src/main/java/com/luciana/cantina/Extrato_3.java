@@ -9,13 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class Mensal_1 extends Fragment {
+
+
+public class Extrato_3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mensal_1, container, false);
+        return inflater.inflate(R.layout.fragment_extrato_3, container, false);
     }
-    public static Mensal_1 newInstance() {
-        return new Mensal_1();
+    public static Extrato_3 newInstance() {
+        return new Extrato_3();
     }
 }
