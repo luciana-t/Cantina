@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Cantina</string>
+
+
+    <string name="dialog_title">Fazer Check in?</string>
+    <string name="ok">Sim</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="dialog_fire_missiles">fireee</string>
+    <string name="fire">FIRE</string>
+
+
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
