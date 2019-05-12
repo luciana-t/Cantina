@@ -21,7 +21,7 @@ public class SplashScreenActivity extends Activity {
                 finish();
 
                 Intent intent = new Intent();
-                intent.setClass(SplashScreenActivity.this, Inicio.class);
+                intent.setClass(SplashScreenActivity.this, Login.class);
                 startActivity(intent);
             }
         }, 3000);

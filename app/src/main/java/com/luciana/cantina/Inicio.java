@@ -21,19 +21,19 @@ public class Inicio extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                 {
-                    getSupportActionBar().setTitle("frag1");
+                    getSupportActionBar().setTitle("Relatório Mensal");
                     openFragment1(f1);
                     break;
                 }
                 case R.id.navigation_dashboard:
                 {
-                    getSupportActionBar().setTitle("frag2");
+                    getSupportActionBar().setTitle("Check-in");
                     openFragment1(f2);
                     break;
                 }
                 case R.id.navigation_notifications:
                 {
-                    getSupportActionBar().setTitle("frag3");
+                    getSupportActionBar().setTitle("Relatório Geral");
                     openFragment1(f3);
                     break;
                 }
