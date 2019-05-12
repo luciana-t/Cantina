@@ -10,6 +10,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:contentDescription="@string/splash"
-        android:src="@drawable/splash" />
+        android:src="@drawable/splash"
+        android:background="@color/colorPrimary"/>
 
 </RelativeLayout>
