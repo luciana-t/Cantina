@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login"></activity>
-        <activity android:name=".Inicio"></activity>
+        <activity android:name=".EspecialUser"></activity>
+        <activity android:name=".Login" />
+        <activity android:name=".Inicio" />
         <activity
             android:name=".SplashScreenActivity"
             android:label="@string/app_name">
