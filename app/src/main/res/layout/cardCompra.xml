@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardComent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_weight="0.7"
+                android:id="@+id/dataCompra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DAta"
+                android:textSize="20dp"
+                android:typeface="normal" />
+
+
+            <TextView
+                android:id="@+id/precoCompra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R$"
+                android:textStyle="bold"
+                android:layout_weight="0.3"
+                android:textSize="18dp"/>
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

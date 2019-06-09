@@ -12,10 +12,10 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private List<item> listItems;
+    private List<compra> listItems;
     private Context context;
 
-    public MyAdapter(List<item> listItems, Context context) {
+    public MyAdapter(List<compra> listItems, Context context) {
         this.listItems = listItems;
         this.context = context;
     }
@@ -23,20 +23,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_comentario, parent, false);
+                .inflate(R.layout.cardCompra, parent, false);
         return new ViewHolder(v);
 
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        item listItem = listItems.get(position);
+        compra listItem = listItems.get(position);
         if(position%2!=0){
             holder.card.setBackgroundResource(R.color.amareloClaro);
         }
 
-        holder.infoComentCard.setText(listItem.getNomeDisciplina());
-        holder.txtcomentCard.setText(listItem.getComentario());
+        holder.DataCompra.setText(listItem.getDataCompra());
+        holder.price.setText(listItem.getPreco());
     }
 
     @Override
@@ -45,15 +45,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView infoComentCard;
-        public TextView txtcomentCard;
+        public TextView DataCompra;
+        public TextView price;
         public CardView card;
 
         public ViewHolder(View itemView) {
             super(itemView);
             card = itemView.findViewById(R.id.cardComent);
-            infoComentCard = (TextView) itemView.findViewById(R.id.infoComentCard);
-            txtcomentCard =(TextView)itemView.findViewById(R.id.txtcomentCard);
+            DataCompra = (TextView) itemView.findViewById(R.id.dataCompra);
+            price =(TextView)itemView.findViewById(R.id.precoCompra);
         }
     }
 }
