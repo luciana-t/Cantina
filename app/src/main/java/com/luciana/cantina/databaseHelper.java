@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class databaseHelper extends SQLiteOpenHelper {
-
     //Variaveis do BD
     private static final String DB_NAME = "cantina.sqlite3";
     private static final int DB_VERSION = 1;
