@@ -17,6 +17,26 @@ public class EspecialUser extends AppCompatActivity {
         Intent it = new Intent(getBaseContext(), CadastroEstoque.class);
         startActivity(it);
     }
+
+    public void onClickHistorico(View view){
+        Intent it = new Intent(getBaseContext(), euHistorico.class);
+        startActivity(it);
+    }
+
+    public void onClickVencidos(View view){
+        Intent it = new Intent(getBaseContext(), euVencidos.class);
+        startActivity(it);
+    }
+
+    public void onClickEstoque(View view){
+        Intent it = new Intent(getBaseContext(), euEstoque.class);
+        startActivity(it);
+    }
+
+    public void onClickMensagens(View view){
+        Intent it = new Intent(getBaseContext(), euMensagens.class);
+        startActivity(it);
+    }
     public void onClickSair(View view){
         finish();
     }

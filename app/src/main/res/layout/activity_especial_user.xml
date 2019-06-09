@@ -37,7 +37,8 @@
             android:layout_rowWeight="1"
             android:layout_gravity="fill"
             android:layout_margin="5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            android:onClick="onClickHistorico"/>
         <Button
             android:id="@+id/btn_venc"
             android:layout_width="wrap_content"
@@ -49,7 +50,8 @@
             android:layout_rowWeight="1"
             android:layout_gravity="fill"
             android:layout_margin="5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            android:onClick="onClickVencidos"/>
         <Button
             android:id="@+id/btn_est"
             android:layout_width="wrap_content"
@@ -61,7 +63,8 @@
             android:layout_rowWeight="1"
             android:layout_gravity="fill"
             android:layout_margin="5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            android:onClick="onClickEstoque"/>
         <Button
             android:id="@+id/btn_mens"
             android:layout_width="wrap_content"
@@ -73,7 +76,8 @@
             android:layout_rowWeight="1"
             android:layout_gravity="fill"
             android:layout_margin="5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            android:onClick="onClickMensagens"/>
         <Button
             android:id="@+id/btn_sair"
             android:layout_width="wrap_content"
