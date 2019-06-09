@@ -20,4 +20,9 @@ public class EspecialUser extends AppCompatActivity {
     public void onClickSair(View view){
         finish();
     }
+
+    public void onClickMensagens(View view){
+        Intent it = new Intent(getBaseContext(), euMensagens.class);
+        startActivity(it);
+    }
 }

@@ -11,10 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CadastroEstoque"></activity>
+        <activity android:name=".euEstoque"></activity>
+        <activity android:name=".euVencidos" />
+        <activity android:name=".euHistorico" />
+        <activity android:name=".euMensagens" />
+        <activity android:name=".CadastroEstoque" />
         <activity
             android:name=".EspecialUser"
-            android:label="Controle"></activity>
+            android:label="Controle" />
         <activity android:name=".Login" />
         <activity android:name=".Inicio" />
         <activity

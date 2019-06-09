@@ -73,7 +73,8 @@
             android:layout_rowWeight="1"
             android:layout_gravity="fill"
             android:layout_margin="5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            android:onClick="onClickMensagens"/>
         <Button
             android:id="@+id/btn_sair"
             android:layout_width="wrap_content"
