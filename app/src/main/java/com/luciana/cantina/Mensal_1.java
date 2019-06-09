@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Mensal_1 extends Fragment {
     RecyclerView recyclerView;
-    MyAdapter adapter;
+    AdapterCompra adapter;
     List<compra> listaitem;
 
     @Override
@@ -54,7 +54,7 @@ public class Mensal_1 extends Fragment {
         listaitem.add(
                 new compra("03/06/2019", "R$ 8,50")
         );
-        adapter = new MyAdapter(listaitem, getActivity());
+        adapter = new AdapterCompra(listaitem, getActivity());
         recyclerView.setAdapter(adapter);
 
         //return inflater.inflate(R.layout.fragment_mensal_1, container, false);

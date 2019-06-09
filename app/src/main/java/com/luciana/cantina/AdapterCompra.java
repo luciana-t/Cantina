@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class AdapterCompra extends RecyclerView.Adapter<AdapterCompra.ViewHolder> {
 
     private List<compra> listItems;
     private Context context;
 
-    public MyAdapter(List<compra> listItems, Context context) {
+    public AdapterCompra(List<compra> listItems, Context context) {
         this.listItems = listItems;
         this.context = context;
     }
@@ -23,7 +23,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardCompra, parent, false);
+                .inflate(R.layout.card_compra, parent, false);
         return new ViewHolder(v);
 
     }
