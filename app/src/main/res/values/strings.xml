@@ -19,4 +19,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+
+    <string-array name="pesos">
+        <item>Kg</item>
+        <item>g</item>
+        <item>L</item>
+        <item>ml</item>
+        <item>unidades</item>
+        <item>caixas</item>
+    </string-array>
 </resources>
