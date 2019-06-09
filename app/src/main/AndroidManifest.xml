@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".euEstoque"></activity>
+        <activity android:name=".Mensagens"></activity>
+        <activity android:name=".euEstoque" />
         <activity android:name=".euVencidos" />
         <activity android:name=".euHistorico" />
         <activity android:name=".euMensagens" />
