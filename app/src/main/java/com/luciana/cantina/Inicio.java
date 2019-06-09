@@ -6,9 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Inicio extends AppCompatActivity {
+
     Fragment f1 = Mensal_1.newInstance();
     Fragment f2 = Checkin_2.newInstance();
     Fragment f3 = Extrato_3.newInstance();
@@ -62,6 +68,8 @@ public class Inicio extends AppCompatActivity {
         openFragment1(f2);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//---------------------------------------------------------------------------------------gabrield
+//------------------------------------------------------------------gabriel
 
         confirmBox(); //IMPORTANTE!!!!!!!!!!!!!!!!!!!!
     }
