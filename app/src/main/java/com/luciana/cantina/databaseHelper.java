@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.List;
+
 public class databaseHelper extends SQLiteOpenHelper {
     //Variaveis do BD
     private static final String DB_NAME = "cantina.sqlite3";
@@ -150,8 +152,8 @@ public class databaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_PORCAO_PRODUTO = "CREATE TABLE " + PORCAO_PRODUTO_TABLE + "("
             + codBarra_KEY + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-            + dataAquisicao_KEY + "NUMERIC NOT NULL, "
-            + validade_KEY + "NUMERIC NOT NULL, "
+            + dataAquisicao_KEY + "TEXT NOT NULL, "
+            + validade_KEY + "TEXT NOT NULL, "
             + valorUnidade_KEY + "REAL NOT NULL, "
             + porcaoUnidade_KEY + "TEXT NOT NULL, "
             + porcaoQuantidade_KEY + "INTEGER NOT NULL "
@@ -194,6 +196,9 @@ public class databaseHelper extends SQLiteOpenHelper {
         values.put(cadastrante_KEY, cadastrante);
         //values.put(valorAberto_KEY, 0); default 0
         db.insert(USER_TABLE, null, values);
+
+        //Fecha conexao com o banco
+        db.close();
     }
 
     public void addSugestao(int idUser, String mensagem, int anonimo){
@@ -205,6 +210,9 @@ public class databaseHelper extends SQLiteOpenHelper {
         values.put(mensagem_KEY, mensagem);
         values.put(anonimo_KEY, anonimo);
         db.insert(SUGESTAO_TABLE, null, values);
+
+        //Fecha conexao com o banco
+        db.close();
     }
 
     public void cadastrarProduto(int codBarra, String nome){
@@ -216,13 +224,54 @@ public class databaseHelper extends SQLiteOpenHelper {
         values.put(nomeProduto_KEY, nome);
         values.put(estoque_KEY, 0);
         db.insert(PRODUTO_TABLE, null, values);
+
+        //Fecha conexao com o banco
+        db.close();
     }
 
-    public void addEstoque(){
-        //TODO
+    public void addEstoque(String nome, int codBarra, int quantidade, float valor, int porcaoQt, String porcaoUnidade, float valorPorcao, String validade){
+        //Abre o banco em modo escrita
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Atualiza quantidade de estoque
+        ContentValues values = new ContentValues();
+        values.put(codBarra_KEY, codBarra);
+        values.put(nomeProduto_KEY, nome);
+        values.put(estoque_KEY, quantidade);
+        db.update(PRODUTO_TABLE, values, "codBarra="+codBarra, null);
+
+        //Adiciona a porcao do produto
+        values.put(codBarra_KEY, codBarra);
+        //TODO: MUDAR PARA DATA ATUAL
+        values.put(dataAquisicao_KEY, "16/06/2019");
+        values.put(validade_KEY, validade);
+        values.put(valorUnidade_KEY, valorPorcao);
+        values.put(porcaoUnidade_KEY, porcaoUnidade);
+        values.put(porcaoQuantidade_KEY, porcaoQt);
+        db.insert(PORCAO_PRODUTO_TABLE, null, values);
+
+        //Fecha conexao com o banco
+        db.close();
     }
 
-    public void efetuarCompra(){
-        //TODO
+    public void efetuarCompra(int idUser, List<String> codBarras, float valorTotal){
+
+        //Abre o banco em modo escrita
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Gera uma compra
+        ContentValues values = new ContentValues();
+        values.put(idUser_KEY, idUser);
+        //TODO: MUDAR PARA DATA ATUAL
+        values.put(dataEfetivada_KEY, "18/06/2019");
+        values.put(valorTotal_KEY, valorTotal);
+        long oid_compra = db.insert(COMPRA_TABLE, null, values);
+        //Para cada produto, adicionar oid_compra e o codBarra relativo a ele na tabela compra_produto
+        for(String codBarra : codBarras) {
+            values = new ContentValues();
+            values.put(idCompra_KEY, oid_compra);
+            values.put(codBarra_KEY, codBarra);
+            db.insert(COMPRA_PRODUTO_TABLE, null, values);
+        }
     }
 }
