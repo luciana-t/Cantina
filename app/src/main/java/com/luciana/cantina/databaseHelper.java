@@ -253,7 +253,7 @@ public class databaseHelper extends SQLiteOpenHelper {
 
         //Adiciona a porcao do produto
         values.put(codBarra_KEY, codBarra);
-        values.put(dataAquisicao_KEY, "16/06/2019");
+        values.put(dataAquisicao_KEY, data_atual_str);
         values.put(validade_KEY, validade);
         values.put(valorUnidade_KEY, valorPorcao);
         values.put(porcaoUnidade_KEY, porcaoUnidade);
@@ -280,7 +280,7 @@ public class databaseHelper extends SQLiteOpenHelper {
         Date data_atual = cal.getTime();
         String data_atual_str = dateFormat.format(data);
 
-        values.put(dataEfetivada_KEY, "18/06/2019");
+        values.put(dataEfetivada_KEY, data_atual_str);
         values.put(valorTotal_KEY, valorTotal);
         long oid_compra = db.insert(COMPRA_TABLE, null, values);
         //Para cada produto, adicionar oid_compra e o codBarra relativo a ele na tabela compra_produto
