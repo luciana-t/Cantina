@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class databaseHelper extends SQLiteOpenHelper {
@@ -240,9 +243,16 @@ public class databaseHelper extends SQLiteOpenHelper {
         values.put(estoque_KEY, quantidade);
         db.update(PRODUTO_TABLE, values, "codBarra="+codBarra, null);
 
+        //Adquire data atual
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date data = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(data);
+        Date data_atual = cal.getTime();
+        String data_atual_str = dateFormat.format(data);
+
         //Adiciona a porcao do produto
         values.put(codBarra_KEY, codBarra);
-        //TODO: MUDAR PARA DATA ATUAL
         values.put(dataAquisicao_KEY, "16/06/2019");
         values.put(validade_KEY, validade);
         values.put(valorUnidade_KEY, valorPorcao);
@@ -255,14 +265,21 @@ public class databaseHelper extends SQLiteOpenHelper {
     }
 
     public void efetuarCompra(int idUser, List<String> codBarras, float valorTotal){
-
         //Abre o banco em modo escrita
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Gera uma compra
         ContentValues values = new ContentValues();
         values.put(idUser_KEY, idUser);
-        //TODO: MUDAR PARA DATA ATUAL
+
+        //Adquire data atual
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date data = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(data);
+        Date data_atual = cal.getTime();
+        String data_atual_str = dateFormat.format(data);
+
         values.put(dataEfetivada_KEY, "18/06/2019");
         values.put(valorTotal_KEY, valorTotal);
         long oid_compra = db.insert(COMPRA_TABLE, null, values);
