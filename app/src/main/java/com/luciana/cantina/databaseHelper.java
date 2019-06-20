@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,6 +14,8 @@ import java.util.List;
 
 public class databaseHelper extends SQLiteOpenHelper {
     //Variaveis do BD
+    private SQLiteDatabase db;
+    private static databaseHelper INSTANCE = new databaseHelper();
     private static final String DB_NAME = "cantina.sqlite3";
     private static final int DB_VERSION = 1;
 
@@ -68,11 +71,11 @@ public class databaseHelper extends SQLiteOpenHelper {
     */
     private static final String CREATE_TABLE_USUARIO = "CREATE TABLE " + USER_TABLE + "("
             + idUser_KEY + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-            + nome_KEY + "TEXT NOT NULL, "
-            + email_KEY + "TEXT NOT NULL UNIQUE, "
-            + senha_KEY + "TEXT NOT NULL, "
-            + valorAberto_KEY + "REAL NOT NULL DEFAULT 0, "
-            + cadastrante_KEY + "NUMERIC NOT NULL DEFAULT 0 "
+            + nome_KEY + " TEXT NOT NULL, "
+            + email_KEY + " TEXT NOT NULL UNIQUE, "
+            + senha_KEY + " TEXT NOT NULL, "
+            + valorAberto_KEY + " REAL NOT NULL DEFAULT 0, "
+            + cadastrante_KEY + " NUMERIC NOT NULL DEFAULT 0 "
             + " );";
 
     /*
@@ -85,11 +88,11 @@ public class databaseHelper extends SQLiteOpenHelper {
     )
      */
     private static final String CREATE_TABLE_SUGESTOES = "CREATE TABLE " + SUGESTAO_TABLE + "("
-            + idUser_KEY + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-            + idSugestao_KEY + "INTEGER NOT NULL, "
-            + mensagem_KEY + "TEXT NOT NULL, "
-            + anonimo_KEY + "NUMERIC NOT NULL DEFAULT 0, "
-            + "FOREIGN KEY(\"idUser\") REFERENCES \"Usuario\"(\"idUser\")"
+            + idUser_KEY + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE REFERENCES \""+USER_TABLE+"\"(\""+idUser_KEY+"\"), "
+            + idSugestao_KEY + " INTEGER NOT NULL, "
+            + mensagem_KEY + " TEXT NOT NULL, "
+            + anonimo_KEY + " NUMERIC NOT NULL DEFAULT 0 "
+            //+ "FOREIGN KEY(\""+idUser_KEY+"\") REFERENCES \""+USER_TABLE+"\"(\""+idUser_KEY+"\")"
             + " );";
 
     /*
@@ -104,10 +107,10 @@ public class databaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_COMPRA = "CREATE TABLE " + COMPRA_TABLE + "("
             + idCompra_KEY + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-            + idUser_KEY + "INTEGER NOT NULL, "
-            + dataEfetivada_KEY + "NUMERIC NOT NULL, "
-            + valorTotal_KEY + "REAL NOT NULL, "
-            + "FOREIGN KEY(\"idUser\") REFERENCES \"Usuario\"(\"idUser\")"
+            + idUser_KEY + " REFERENCES \" "+USER_TABLE+" \"(\""+idUser_KEY+"\"), "
+            + dataEfetivada_KEY + " NUMERIC NOT NULL, "
+            + valorTotal_KEY + " REAL NOT NULL "
+            //+ "FOREIGN KEY(\""+idUser_KEY+"\") REFERENCES \"Usuario\"(\""+idUser_KEY+"\")"
             + " );";
 
     /*
@@ -120,8 +123,8 @@ public class databaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_PRODUTO = "CREATE TABLE " + PRODUTO_TABLE + "("
             + codBarra_KEY + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-            + nomeProduto_KEY + "TEXT NOT NULL, "
-            + estoque_KEY + "INTEGER NOT NULL DEFAULT 0 "
+            + nomeProduto_KEY + " TEXT NOT NULL, "
+            + estoque_KEY + " INTEGER NOT NULL DEFAULT 0 "
             + " );";
 
     /*
@@ -135,10 +138,10 @@ public class databaseHelper extends SQLiteOpenHelper {
      */
 
     private static final String CREATE_TABLE_COMPRA_PRODUTO = "CREATE TABLE " + COMPRA_PRODUTO_TABLE + "("
-            + idCompra_KEY + " INTEGER NOT NULL, "
-            + codBarra_KEY + "INTEGER NOT NULL, "
-            + "FOREIGN KEY(\"codBarra\") REFERENCES \"Produto\"(\"codBarra\"), "
-            + "FOREIGN KEY(\"idCompra\") REFERENCES \"Usuário\"(\"idUser\"), "
+            + idCompra_KEY + " REFERENCES \" "+ PRODUTO_TABLE +" \"(\" "+codBarra_KEY+" \"), "
+            + codBarra_KEY + " REFERENCES \" "+ USER_TABLE +" \"(\""+idUser_KEY+"\"), "
+            //+ "FOREIGN KEY(\""+codBarra_KEY+"\") REFERENCES \" "+ PRODUTO_TABLE +" \"(\" "+codBarra_KEY+" \"), "
+            //+ "FOREIGN KEY(\""+idCompra_KEY+"\") REFERENCES \" "+ USER_TABLE +" \"(\""+idUser_KEY+"\"), "
             + "PRIMARY KEY(\"codBarra\",\"idCompra\")"
             + " );";
 
@@ -155,26 +158,37 @@ public class databaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_PORCAO_PRODUTO = "CREATE TABLE " + PORCAO_PRODUTO_TABLE + "("
             + codBarra_KEY + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-            + dataAquisicao_KEY + "TEXT NOT NULL, "
-            + validade_KEY + "TEXT NOT NULL, "
-            + valorUnidade_KEY + "REAL NOT NULL, "
-            + porcaoUnidade_KEY + "TEXT NOT NULL, "
-            + porcaoQuantidade_KEY + "INTEGER NOT NULL "
+            + dataAquisicao_KEY + " TEXT NOT NULL, "
+            + validade_KEY + " TEXT NOT NULL, "
+            + valorUnidade_KEY + " REAL NOT NULL, "
+            + porcaoUnidade_KEY + " TEXT NOT NULL, "
+            + porcaoQuantidade_KEY + " INTEGER NOT NULL "
             + " );";
 
 
-    public databaseHelper(Context ctx) {
-        super(ctx, DB_NAME, null, DB_VERSION);
+    public databaseHelper() {
+        super(MyApp.getAppContext(), DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.i("BANCO_DADOS", "Iniciando criacao das tabelas");
         db.execSQL(CREATE_TABLE_USUARIO);
         db.execSQL(CREATE_TABLE_SUGESTOES);
         db.execSQL(CREATE_TABLE_COMPRA);
         db.execSQL(CREATE_TABLE_PRODUTO);
         db.execSQL(CREATE_TABLE_COMPRA_PRODUTO);
         db.execSQL(CREATE_TABLE_PORCAO_PRODUTO);
+
+        //Cadastra usuario administrador ja ao recriar a tabela
+        ContentValues values = new ContentValues();
+        values.put(nome_KEY, "Especial");
+        values.put(email_KEY, "Administrador@cantina.br");
+        values.put(senha_KEY, "123");
+        values.put(cadastrante_KEY, 1);
+        db.insert(USER_TABLE, null, values);
+
+        Log.i("BANCO_DADOS", "Tabelas criadas com sucesso");
     }
 
     @Override
@@ -188,9 +202,28 @@ public class databaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void cadastrarUsuario(String nome, String email, String senha, int cadastrante){
+    public String cadastrarUsuario(String nome, String email, String senha, int cadastrante){
+        Cursor cursor;
+        //Abre o banco em modo leitura
+        SQLiteDatabase db = INSTANCE.getReadableDatabase();
+
+        //Verifica se o nome de usuario ja esta cadastrado
+        cursor = db.query(USER_TABLE, new String[] {nomeProduto_KEY}, nomeProduto_KEY + " = ?", new String[]{nome}, null, null, null, null);
+        if(cursor.getCount() != 0) {
+            db.close();
+            return "Nome de usuário já cadastrado";
+        }
+        //Verifica se o email ja esta cadastrado
+        cursor = db.query(USER_TABLE, new String[] {email_KEY}, email_KEY + " = ?", new String[]{email}, null, null, null, null);
+        if(cursor.getCount() != 0) {
+            db.close();
+            return "Email já cadastrado";
+        }
+
+        //Se nao ha nem nome de usuario e nem email cadastrado
+        db.close();
         //Abre o banco em modo escrita
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = INSTANCE.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(nome_KEY, nome);
@@ -202,11 +235,39 @@ public class databaseHelper extends SQLiteOpenHelper {
 
         //Fecha conexao com o banco
         db.close();
+        return "Usuário cadastrado";
+    }
+
+    public String validarUsuario(String nome, String senha){
+        Cursor cursor;
+        //Abre o banco em modo leitura
+        SQLiteDatabase db = INSTANCE.getReadableDatabase();
+
+        //Procura usuario no banco
+        cursor = db.query(USER_TABLE, new String[] {nomeProduto_KEY, senha_KEY, cadastrante_KEY}, nomeProduto_KEY + " = ?", new String[]{nome}, null, null, null, null);
+        if(cursor.getCount() == 0) {
+            db.close();
+            return "Usuário inválido";
+        }
+
+        cursor.moveToFirst();
+        if(senha.equals(cursor.getString(1))){
+            if(cursor.getInt(2) == 1){
+                db.close();
+                return "Usuário especial";
+            }else{
+                db.close();
+                return "Usuário comum";
+            }
+        }else{
+            db.close();
+            return "Senha inválida";
+        }
     }
 
     public void addSugestao(int idUser, String mensagem, int anonimo){
         //Abre o banco em modo escrita
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = INSTANCE.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(idUser_KEY, idUser);
@@ -220,7 +281,7 @@ public class databaseHelper extends SQLiteOpenHelper {
 
     public void cadastrarProduto(int codBarra, String nome){
         //Abre o banco em modo escrita
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = INSTANCE.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(codBarra_KEY, codBarra);
@@ -234,7 +295,7 @@ public class databaseHelper extends SQLiteOpenHelper {
 
     public void addEstoque(String nome, int codBarra, int quantidade, float valor, int porcaoQt, String porcaoUnidade, float valorPorcao, String validade){
         //Abre o banco em modo escrita
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = INSTANCE.getWritableDatabase();
 
         //Atualiza quantidade de estoque
         ContentValues values = new ContentValues();
@@ -266,7 +327,7 @@ public class databaseHelper extends SQLiteOpenHelper {
 
     public void efetuarCompra(int idUser, List<String> codBarras, float valorTotal){
         //Abre o banco em modo escrita
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = INSTANCE.getWritableDatabase();
 
         //Gera uma compra
         ContentValues values = new ContentValues();
@@ -290,5 +351,9 @@ public class databaseHelper extends SQLiteOpenHelper {
             values.put(codBarra_KEY, codBarra);
             db.insert(COMPRA_PRODUTO_TABLE, null, values);
         }
+    }
+
+    public static databaseHelper getInstance(){
+        return INSTANCE;
     }
 }

@@ -2,92 +2,88 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimary"
+    android:layout_centerInParent="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
-    android:background="@color/colorPrimary"
-    android:layout_centerInParent="true">
-
-
-    <ImageView
-        android:id="@+id/LoginLogo"
-        android:layout_width="250dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:src="@drawable/logo" />
+    tools:context=".CadastroUsuario">
 
     <TextView
-        android:id="@+id/loginUserTxt"
+        android:id="@+id/txtUserC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/LoginLogo"
-        android:layout_marginTop="40dp"
+        android:layout_above="@+id/CadastroUser"
+        android:layout_marginBottom="15dp"
         android:layout_centerInParent="true"
         android:ems="10"
         android:textSize="10pt"
         android:text="Usuário"/>
 
     <EditText
-        android:id="@+id/loginUser"
+        android:id="@+id/CadastroUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/LoginLogo"
-        android:layout_marginTop="80dp"
+        android:layout_above="@+id/txtEmailC"
+        android:layout_marginBottom="15dp"
         android:layout_centerInParent="true"
         android:ems="10"
         android:textSize="10pt"
         android:text=""/>
 
     <TextView
-        android:id="@+id/loginPasswordTxt"
+        android:id="@+id/txtEmailC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loginUser"
-        android:layout_marginTop="20dp"
+        android:layout_above="@+id/CadastroEmail"
+        android:layout_marginBottom="15dp"
+        android:layout_centerInParent="true"
+        android:ems="10"
+        android:textSize="10pt"
+        android:text="Email"/>
+
+    <EditText
+        android:id="@+id/CadastroEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:ems="10"
+        android:textSize="10pt"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/txtSenhaC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CadastroEmail"
+        android:layout_marginTop="15dp"
         android:layout_centerInParent="true"
         android:ems="10"
         android:textSize="10pt"
         android:text="Senha"/>
 
     <EditText
-        android:id="@+id/loginPassword"
+        android:id="@+id/CadastroPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loginUser"
-        android:layout_marginTop="50dp"
+        android:layout_below="@+id/txtSenhaC"
+        android:layout_marginTop="15dp"
         android:layout_centerInParent="true"
         android:ems="10"
         android:textSize="10pt"
         android:text=""/>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/confirmaCadastroButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/loginPassword"
-        android:layout_marginTop="30dp"
+        android:layout_below="@+id/CadastroPassword"
+        android:layout_marginTop="40dp"
         android:layout_centerInParent="true"
         android:ems="8"
         android:background="@color/bee"
         android:textSize="10pt"
         android:textColor="#000000"
-        android:text="LOGIN"
-        android:onClick="login"/>
-
-    <Button
-        android:id="@+id/cadastroButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/loginButton"
-        android:layout_marginTop="15dp"
-        android:layout_centerInParent="true"
-        android:ems="8"
-        android:background="@color/bee"
-        android:textSize="10pt"
-        android:textColor="#000000"
-        android:text="CADASTRO"
+        android:text="CONFIRMAR"
         android:onClick="cadastro"/>
-
 
 </RelativeLayout>
