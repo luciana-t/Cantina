@@ -72,18 +72,35 @@
         android:textSize="10pt"
         android:text=""/>
 
-    <Button
-        android:id="@+id/confirmaCadastroButton"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/CadastroPassword"
         android:layout_marginTop="40dp"
-        android:layout_centerInParent="true"
-        android:ems="8"
-        android:background="@color/bee"
-        android:textSize="10pt"
-        android:textColor="#000000"
-        android:text="CONFIRMAR"
-        android:onClick="cadastro"/>
+        android:layout_centerInParent="true">
+
+        <Button
+            android:id="@+id/voltarCadastroButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:background="@color/bee"
+            android:textSize="8pt"
+            android:textColor="#000000"
+            android:text="VOLTAR"
+            android:onClick="voltar"/>
+
+        <Button
+            android:id="@+id/confirmaCadastroButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:ems="5"
+            android:background="@color/bee"
+            android:textSize="8pt"
+            android:textColor="#000000"
+            android:text="CONFIRMAR"
+            android:onClick="cadastro"/>
+    </LinearLayout>
 
 </RelativeLayout>

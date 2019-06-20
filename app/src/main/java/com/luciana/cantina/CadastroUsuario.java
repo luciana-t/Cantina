@@ -49,4 +49,8 @@ public class CadastroUsuario extends AppCompatActivity {
             }
         }
     }
+
+    public void voltar(View view){
+        finish();
+    }
 }

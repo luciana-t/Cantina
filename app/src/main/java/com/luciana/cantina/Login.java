@@ -1,5 +1,6 @@
 package com.luciana.cantina;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,9 +37,9 @@ public class Login extends AppCompatActivity {
             Log.i("Validacao", "Logado como usuário comum");
             //Loga no usuario comum
             Intent intent = new Intent();
+            intent.putExtra("nome_user_logged", user.getText().toString());
             intent.setClass(Login.this, Inicio.class);
             startActivity(intent);
-            finish();
         }else if(result.equals("Usuário especial")){
             Log.i("Validacao", "Logado como usuário especial");
             //Loga no usuario especial
