@@ -20,6 +20,22 @@ public class Checkin_2 extends Fragment {
     AdapterComida adapter;
     List<comida> listaitem;
 
+    public void menos(int position) {
+        int aux = listaitem.get(position).getAmount();
+        if (aux == 0){
+        }else{
+            aux--;
+            listaitem.get(position).setAmount(aux);
+            this.adapter.notifyItemChanged(position);
+        }
+    }
+
+    public void mais(int position) {
+        int aux = listaitem.get(position).getAmount();
+            aux++;
+            listaitem.get(position).setAmount(aux);
+            this.adapter.notifyItemChanged(position);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,7 +84,18 @@ public class Checkin_2 extends Fragment {
         listaitem.add(
                 new comida("criatividade 0")
         );
-        adapter = new AdapterComida(listaitem, getActivity());
+
+        adapter = new AdapterComida(listaitem, getActivity(), new AdapterComida.DetailsAdapterListener() {
+            @Override
+            public void menosOnClick(View v, int position) {
+                menos(position);
+            }
+
+            @Override
+            public void maisOnClick(View v, int position) {
+                mais(position);
+            }
+        });
         recyclerView.setAdapter(adapter);
 
         return rootView;

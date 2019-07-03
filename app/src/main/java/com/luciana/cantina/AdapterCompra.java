@@ -3,6 +3,7 @@ package com.luciana.cantina;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,6 @@ public class AdapterCompra extends RecyclerView.Adapter<AdapterCompra.ViewHolder
         if(position%2!=0){
             holder.card.setBackgroundResource(R.color.amareloClaro);
         }
-
         holder.DataCompra.setText(listItem.getDataCompra());
         holder.price.setText(listItem.getPreco());
     }

@@ -11,11 +11,6 @@
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:orientation="vertical">
-            <ImageView
-                android:id="@+id/imagemComida"
-                android:layout_width="180dp"
-                android:layout_height="150dp"
-                android:src="@drawable/dish"/>
             <TextView
                 android:id="@+id/nomeComida"
                 android:layout_width="180dp"
@@ -23,6 +18,33 @@
                 android:text="nome"
                 android:gravity="center"
                 android:textSize="20dp"/>
+            <ImageView
+                android:id="@+id/imagemComida"
+                android:layout_width="180dp"
+                android:layout_height="100dp"
+                android:src="@drawable/dish"/>
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="50dp">
+                <Button
+                    android:id="@+id/bt_sub_card"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="-"/>
+                <EditText
+                    android:id="@+id/qtd"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/bt_add_card"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="+"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
