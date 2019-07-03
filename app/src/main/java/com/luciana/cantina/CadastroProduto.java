@@ -87,12 +87,13 @@ public class CadastroProduto extends Activity {
                 if(result_porcao != "Porção cadastrada com sucesso"){
                     //Se deu errado, entao deleta o produto cadastrado
                     crud.deleteProduto(codBarra.getText().toString());
+                }else{
+                    cadastrados++;
                 }
             }
         }
         //Adiciona mais um ao contador de produtos cadastrados juntos
-        cadastrados++;
         produtoTxt = (TextView) findViewById(R.id.produtoTxt);
-        produtoTxt.setText(produtoTxt.getText().toString() + cadastrados);
+        produtoTxt.setText("Produto " + cadastrados);
     }
 }

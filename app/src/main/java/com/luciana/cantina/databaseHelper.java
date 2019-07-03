@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -287,6 +288,42 @@ public class databaseHelper extends SQLiteOpenHelper {
             db.close();
             return "Senha inválida";
         }
+    }
+
+    //Funcoes crud do usuario especial
+
+    public ArrayList<String[]> getEstoque(){
+        Cursor cursor, cursorNome;
+        //Abre o banco em modo leitura
+        db = INSTANCE.getReadableDatabase();
+
+        ArrayList<String[]> list = new ArrayList<>();
+
+        //Adquire todos estoques
+        cursor = db.query(ESTOQUE_TABLE, new String[] {codBarra_KEY, estoque_quantidade_KEY, dataAquisicao_KEY, validade_KEY, valorComprado_KEY}, null, null, null, null, null, null);
+        cursor.moveToFirst();
+
+        //Salva num arraylist
+        while (!cursor.isAfterLast()) {
+            String codBarra = cursor.getString(cursor.getColumnIndex(codBarra_KEY));
+            String quantidade = cursor.getString(cursor.getColumnIndex(estoque_quantidade_KEY));
+            String aquisicao = cursor.getString(cursor.getColumnIndex(dataAquisicao_KEY));
+            String validade = cursor.getString(cursor.getColumnIndex(validade_KEY));
+            String valorComprado = cursor.getString(cursor.getColumnIndex(valorComprado_KEY));
+
+            //Adquire o nome do produto
+            cursorNome = db.query(PRODUTO_TABLE, new String[] {nomeProduto_KEY}, codBarra_KEY + " =?", new String[] {codBarra}, null, null, null, null);
+            cursorNome.moveToFirst();
+
+            list.add(new String[] {cursorNome.getString(0), codBarra, quantidade, valorComprado, aquisicao, validade});
+            cursor.moveToNext();
+        }
+
+        return list;
+    }
+
+    public  ArrayList<String[]> getVencidos(){
+        return new ArrayList<String[]>();
     }
 
     //Funcoes crud de sugestoes
