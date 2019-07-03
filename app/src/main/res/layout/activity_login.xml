@@ -24,8 +24,7 @@
         android:layout_below="@+id/LoginLogo"
         android:layout_marginTop="40dp"
         android:layout_centerInParent="true"
-        android:ems="10"
-        android:textSize="10pt"
+        android:textSize="20dp"
         android:text="Usuário"/>
 
     <EditText
@@ -35,8 +34,8 @@
         android:layout_below="@+id/LoginLogo"
         android:layout_marginTop="80dp"
         android:layout_centerInParent="true"
-        android:ems="10"
-        android:textSize="10pt"
+        android:ems="12"
+        android:textSize="20dp"
         android:text=""/>
 
     <TextView
@@ -46,8 +45,7 @@
         android:layout_below="@id/loginUser"
         android:layout_marginTop="20dp"
         android:layout_centerInParent="true"
-        android:ems="10"
-        android:textSize="10pt"
+        android:textSize="20dp"
         android:text="Senha"/>
 
     <EditText
@@ -57,9 +55,10 @@
         android:layout_below="@id/loginUser"
         android:layout_marginTop="50dp"
         android:layout_centerInParent="true"
-        android:ems="10"
-        android:textSize="10pt"
-        android:text=""/>
+        android:ems="12"
+        android:textSize="20dp"
+        android:text=""
+        android:password="true"/>
 
     <Button
         android:id="@+id/loginButton"
@@ -68,9 +67,9 @@
         android:layout_below="@+id/loginPassword"
         android:layout_marginTop="30dp"
         android:layout_centerInParent="true"
-        android:ems="8"
+        android:ems="10"
         android:background="@color/bee"
-        android:textSize="10pt"
+        android:textSize="20dp"
         android:textColor="#000000"
         android:text="LOGIN"
         android:onClick="login"/>
@@ -82,9 +81,9 @@
         android:layout_below="@+id/loginButton"
         android:layout_marginTop="15dp"
         android:layout_centerInParent="true"
-        android:ems="8"
+        android:ems="10"
         android:background="@color/bee"
-        android:textSize="10pt"
+        android:textSize="20dp"
         android:textColor="#000000"
         android:text="CADASTRO"
         android:onClick="cadastro"/>

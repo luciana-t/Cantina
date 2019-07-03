@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastroEstoque"
+    tools:context=".CadastroProduto"
     android:orientation="vertical"
     android:gravity="center">
 
@@ -16,7 +16,7 @@
             android:id="@+id/produtoTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Estoque"
+            android:text="Produto"
             android:textSize="25dp"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginBottom="15dp"/>
@@ -28,6 +28,24 @@
         android:layout_height="wrap_content"
         android:background="@color/bee"
         android:orientation="vertical">
+
+        <!-- Nome -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome:"
+                android:textColor="@color/colorPrimaryDark"/>
+            <EditText
+                android:id="@+id/cadastro_produto_nome"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"/>
+        </LinearLayout>
 
         <!-- Codigo de Barra -->
         <LinearLayout
@@ -41,13 +59,36 @@
                 android:text="Cod. Barra:"
                 android:textColor="@color/colorPrimaryDark"/>
             <EditText
-                android:id="@+id/cadastro_estoque_codBarra"
+                android:id="@+id/cadastro_produto_codBarra"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"/>
         </LinearLayout>
 
-        <!-- Quantidade -->
+    </LinearLayout>
+
+    <!-- Titulo -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Porção"
+            android:textSize="25dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"/>
+    </LinearLayout>
+
+    <!-- Campos para preencher relativos a porcao -->
+    <LinearLayout
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:background="@color/bee"
+        android:orientation="vertical">
+
+        <!-- Porcao -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,23 +96,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quantidade:"
+                android:text="Porção:"
                 android:textColor="@color/colorPrimaryDark"/>
             <EditText
-                android:id="@+id/cadastro_estoque_qt"
+                android:id="@+id/cadastro_produto_porcao"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:layout_marginLeft="15dp"/>
             <Spinner
-                android:id="@+id/spinner_cadastro_estoque"
+                android:id="@+id/spinner_cadastro_porcao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"/>
-
         </LinearLayout>
 
-        <!-- Valor de compra -->
+        <!-- Valor Porcao -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,33 +119,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Valor de compra: R$"
+                android:text="Valor porção: R$"
                 android:textColor="@color/colorPrimaryDark"/>
             <EditText
-                android:id="@+id/cadastro_estoque_valor_compra"
+                android:id="@+id/cadastro_produto_valor_porcao"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:layout_marginLeft="15dp"/>
 
-        </LinearLayout>
-
-        <!-- Validade -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Data de validade:  "
-                android:textColor="@color/colorPrimaryDark"/>
-            <EditText
-                android:id="@+id/cadastro_estoque_validade"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:layout_marginLeft="15dp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -130,7 +152,7 @@
             android:background="@color/colorPrimary"
             android:layout_marginTop="25dp"
             android:text="Cadastrar"
-            android:onClick="cadastrarEstoque"/>
+            android:onClick="cadastrarProduto"/>
 
     </LinearLayout>
 

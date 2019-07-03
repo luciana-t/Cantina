@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastroEstoque"
+    tools:context=".CadastroPorcao"
     android:orientation="vertical"
     android:gravity="center">
 
@@ -13,23 +13,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/produtoTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Estoque"
+            android:text="Porção"
             android:textSize="25dp"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginBottom="15dp"/>
     </LinearLayout>
 
-    <!-- Campos para preencher relativos ao produto -->
+    <!-- Campos para preencher -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/bee"
         android:orientation="vertical">
 
-        <!-- Codigo de Barra -->
+        <!-- Nome -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome:"
+                android:textColor="@color/colorPrimaryDark"/>
+            <EditText
+                android:id="@+id/cadastro_porcao_nome"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"/>
+        </LinearLayout>
+
+        <!-- Nome -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -41,13 +58,13 @@
                 android:text="Cod. Barra:"
                 android:textColor="@color/colorPrimaryDark"/>
             <EditText
-                android:id="@+id/cadastro_estoque_codBarra"
+                android:id="@+id/cadastro_porcao_codBarra"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"/>
         </LinearLayout>
 
-        <!-- Quantidade -->
+        <!-- Porcao -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,23 +72,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quantidade:"
+                android:text="Porção:"
                 android:textColor="@color/colorPrimaryDark"/>
             <EditText
-                android:id="@+id/cadastro_estoque_qt"
+                android:id="@+id/cadastro_porcao_qt"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
+                android:inputType="text"
                 android:layout_marginLeft="15dp"/>
             <Spinner
-                android:id="@+id/spinner_cadastro_estoque"
+                android:id="@+id/spinner_cadastro_porcao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"/>
-
         </LinearLayout>
 
-        <!-- Valor de compra -->
+        <!-- Valor Porcao -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,33 +95,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Valor de compra: R$"
+                android:text="Valor porção: R$"
                 android:textColor="@color/colorPrimaryDark"/>
             <EditText
-                android:id="@+id/cadastro_estoque_valor_compra"
+                android:id="@+id/cadastro_porcao_valor"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:layout_marginLeft="15dp"/>
 
-        </LinearLayout>
-
-        <!-- Validade -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Data de validade:  "
-                android:textColor="@color/colorPrimaryDark"/>
-            <EditText
-                android:id="@+id/cadastro_estoque_validade"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:layout_marginLeft="15dp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -113,9 +111,10 @@
     <!-- Botoes -->
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
         <Button
-            android:id="@+id/btn_voltar"
+            android:id="@+id/voltar_cadastro_porcao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
@@ -124,14 +123,13 @@
             android:layout_marginRight="25dp"
             android:onClick="voltar"/>
         <Button
-            android:id="@+id/btn_add"
+            android:id="@+id/btm_cadastrar_porcao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:layout_marginTop="25dp"
             android:text="Cadastrar"
-            android:onClick="cadastrarEstoque"/>
-
+            android:onClick="cadastrarPorcao"/>
     </LinearLayout>
 
 </LinearLayout>
