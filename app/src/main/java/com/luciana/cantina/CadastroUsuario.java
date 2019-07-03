@@ -31,7 +31,7 @@ public class CadastroUsuario extends AppCompatActivity {
 
         //Verifica se algum campo esta vazio
         if(isEmpty(user) | isEmpty(email) | isEmpty(psswd)) {
-            Log.i("Cadastro", "Campo inválido");
+            Log.i("Cadastro_Usuario", "Campo inválido");
             if(isEmpty(psswd))
                 Toast.makeText(this,"Campo SENHA vazio.", Toast.LENGTH_SHORT).show();
             if(isEmpty(email))
@@ -41,10 +41,8 @@ public class CadastroUsuario extends AppCompatActivity {
         }else{
             String result;
             result = crud.cadastrarUsuario(user.getText().toString(), email.getText().toString(), psswd.getText().toString(), 0);
-            if(result != "Usuário cadastrado")
-                Toast.makeText(this,result, Toast.LENGTH_SHORT).show();
-            else{
-                Toast.makeText(this,result+" com sucesso!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,result, Toast.LENGTH_SHORT).show();
+            if(result == "Usuário cadastrado com sucesso") {
                 finish();
             }
         }

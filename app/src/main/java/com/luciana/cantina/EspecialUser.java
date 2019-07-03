@@ -14,7 +14,7 @@ public class EspecialUser extends AppCompatActivity {
     }
 
     public void onClickBtn(View view){
-        Intent it = new Intent(getBaseContext(), CadastroEstoque.class);
+        Intent it = new Intent(getBaseContext(), CadastroProdutoTab.class);
         startActivity(it);
     }
 

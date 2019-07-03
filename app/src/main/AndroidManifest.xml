@@ -4,7 +4,7 @@
     package="com.luciana.cantina">
 
     <application
-        android:name="com.luciana.cantina.MyApp"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,13 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CadastroUsuario"></activity>
+        <activity android:name=".CadastroProduto" />
+        <activity android:name=".CadastroEstoque" />
+        <activity android:name=".CadastroPorcao" />
+        <activity android:name=".CadastroProdutoTab" />
+        <activity android:name=".CadastroUsuario" />
         <activity android:name=".Mensagens" />
         <activity android:name=".euEstoque" />
         <activity android:name=".euVencidos" />
         <activity android:name=".euHistorico" />
         <activity android:name=".euMensagens" />
-        <activity android:name=".CadastroEstoque" />
         <activity
             android:name=".EspecialUser"
             android:label="Controle" />
@@ -29,7 +32,6 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
