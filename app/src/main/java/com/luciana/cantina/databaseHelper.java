@@ -143,7 +143,7 @@ public class databaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_COMPRA_PRODUTO = "CREATE TABLE " + COMPRA_PRODUTO_TABLE + "("
             + idCompra_KEY + " REFERENCES \" "+ PRODUTO_TABLE +" \"(\" "+codBarra_KEY+" \"), "
             + codBarra_KEY + " REFERENCES \" "+ USER_TABLE +" \"(\""+idUser_KEY+"\"), "
-            + "PRIMARY KEY(\"codBarra\",\"idCompra\")"
+            + "PRIMARY KEY(\""+codBarra_KEY+"\",\""+idCompra_KEY+"\")"
             + " );";
 
     /*
@@ -170,15 +170,17 @@ public class databaseHelper extends SQLiteOpenHelper {
 	"validade"	TEXT NOT NULL,
 	"valorComprado" REAL NOT NULL,
 	FOREIGN KEY("codBarra") REFERENCES "Produto"("codBarra"),
+	PRIMARY KEY ("codBarra" , "dataAquisicao")
     )
      */
 
     private static final String CREATE_TABLE_ESTOQUE = "CREATE TABLE " + ESTOQUE_TABLE + "("
-            + codBarra_KEY + " REFERENCES \" "+ USER_TABLE +" \"(\""+idUser_KEY+"\"), "
+            + codBarra_KEY + " REFERENCES \" "+ PRODUTO_TABLE +" \"(\""+codBarra_KEY+"\"), "
             + estoque_quantidade_KEY + " INTEGER NOT NULL DEFAULT 0, "
             + dataAquisicao_KEY + " TEXT NOT NULL, "
-            + validade_KEY + " TEXT NOT NULL, "
-            + valorComprado_KEY + " REAL NOT NULL "
+            //+ validade_KEY + " TEXT NOT NULL, "
+            + valorComprado_KEY + " REAL NOT NULL, "
+            + "PRIMARY KEY(\""+codBarra_KEY+"\",\""+dataAquisicao_KEY+"\")"
             + ");";
 
     public databaseHelper() {
@@ -210,6 +212,15 @@ public class databaseHelper extends SQLiteOpenHelper {
         values.put(cadastrante_KEY, 1);
         db.insert(USER_TABLE, null, values);
 
+        Log.i("BANCO_DADOS", "Inserindo usuário comum");
+        //Cadastra usuario administrador ja ao recriar a tabela
+        values = new ContentValues();
+        values.put(nome_KEY, "Comum");
+        values.put(email_KEY, "User1@cantina.br");
+        values.put(senha_KEY, "123");
+        values.put(cadastrante_KEY, 0);
+        db.insert(USER_TABLE, null, values);
+
         //Log.i("BANCO_DADOS", "Inserindo estoques fantasma");
     }
 
@@ -222,6 +233,7 @@ public class databaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS '" + COMPRA_PRODUTO_TABLE + "'");
         db.execSQL("DROP TABLE IF EXISTS '" + PORCAO_PRODUTO_TABLE + "'");
         db.execSQL("DROP TABLE IF EXISTS '" + ESTOQUE_TABLE + "'");
+        Log.i("BANCO_DADOS", "onUpgrade called");
         onCreate(db);
     }
 
@@ -255,7 +267,6 @@ public class databaseHelper extends SQLiteOpenHelper {
         values.put(email_KEY, email);
         values.put(senha_KEY, senha);
         values.put(cadastrante_KEY, cadastrante);
-        //values.put(valorAberto_KEY, 0); default 0
         db.insert(USER_TABLE, null, values);
 
         //Fecha conexao com o banco
@@ -322,13 +333,14 @@ public class databaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    //TODO --- Se der tempo
     public  ArrayList<String[]> getVencidos(){
         return new ArrayList<String[]>();
     }
 
     //Funcoes crud de sugestoes
 
-    //TODO
+    //TODO --- Se der tempo
     public void addSugestao(int idUser, String mensagem, int anonimo){
         //Abre o banco em modo escrita
         db = INSTANCE.getWritableDatabase();
@@ -373,7 +385,7 @@ public class databaseHelper extends SQLiteOpenHelper {
         return "Produto cadastrado";
     }
 
-    public String addEstoque(String codBarra, String quantidade, String valor, String validade){
+    public String addEstoque(String codBarra, String quantidade, String valor){
         Cursor cursor;
         //Abre o banco em modo escrita
         db = INSTANCE.getWritableDatabase();
@@ -385,27 +397,55 @@ public class databaseHelper extends SQLiteOpenHelper {
             return "Este produto ainda não foi cadastrado";
         }
 
-        //Adquire data atual
-        SimpleDateFormat dateFormat = new SimpleDateFormat("DD-MM-YYYY");
-        Date data = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(data);
-        Date data_atual = cal.getTime();
-        String data_atual_str = dateFormat.format(data);
+        //Verifica se ja tem estoque cadastrado
+        cursor = db.query(ESTOQUE_TABLE, new String[] {codBarra_KEY}, codBarra_KEY + " = ?", new String[]{codBarra}, null, null, null, null);
+        if(cursor.getCount() == 0) {
+            //Adquire data atual
+            SimpleDateFormat dateFormat = new SimpleDateFormat("DD-MM-YYYY");
+            Date data = new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(data);
+            Date data_atual = cal.getTime();
+            String data_atual_str = dateFormat.format(data);
 
-        //Cadastra o estoque
-        ContentValues values = new ContentValues();
-        values.put(codBarra_KEY, codBarra);
-        values.put(estoque_quantidade_KEY, Integer.parseInt(quantidade));
-        values.put(dataAquisicao_KEY, data_atual_str);
-        values.put(validade_KEY, validade);
-        values.put(valorComprado_KEY, Float.parseFloat(valor));
-        //Insere o estoque na tabela de estoques
-        db.insert(ESTOQUE_TABLE, null, values);
+            //Cadastra o estoque
+            ContentValues values = new ContentValues();
+            values.put(codBarra_KEY, Integer.parseInt(codBarra));
+            values.put(estoque_quantidade_KEY, Integer.parseInt(quantidade));
+            values.put(dataAquisicao_KEY, data_atual_str);
+            //values.put(validade_KEY, validade);
+            values.put(valorComprado_KEY, Float.parseFloat(valor));
+            //Insere o estoque na tabela de estoques
+            db.insert(ESTOQUE_TABLE, null, values);
 
-        //Fecha conexao com o banco
-        db.close();
-        return "Estoque cadastrado com sucesso";
+            //Fecha conexao com o banco
+            db.close();
+            return "Estoque cadastrado com sucesso";
+        }else{
+            //Adquire data atual
+            SimpleDateFormat dateFormat = new SimpleDateFormat("DD-MM-YYYY");
+            Date data = new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(data);
+            Date data_atual = cal.getTime();
+            String data_atual_str = dateFormat.format(data);
+
+            //Adquire o estoque ja existente
+            cursor = db.query(ESTOQUE_TABLE, new String[] {estoque_quantidade_KEY}, codBarra_KEY + " =?", new String[] {codBarra}, null, null, null, null);
+            cursor.moveToFirst();
+
+            //Cadastra o estoque
+            ContentValues values = new ContentValues();
+            values.put(estoque_quantidade_KEY, cursor.getInt(0) + Integer.parseInt(quantidade)); //Atualiza a qt em estoque
+            values.put(dataAquisicao_KEY, data_atual_str); //Reatualiza a data de restoque
+            values.put(valorComprado_KEY, Float.parseFloat(valor)); //Atualiza o valor do produto
+            //Insere o estoque na tabela de estoques
+            db.update(ESTOQUE_TABLE, values, codBarra_KEY + " =?", new String[] {codBarra});
+
+            //Fecha conexao com o banco
+            db.close();
+            return "Estoque atualizado com sucesso";
+        }
     }
 
     public String addPorcao(String codBarra, String valorPorcao, String porcaoUnidade, String qtPorcao){
@@ -428,7 +468,7 @@ public class databaseHelper extends SQLiteOpenHelper {
 
         //Cadastra a porcao
         ContentValues values = new ContentValues();
-        values.put(codBarra_KEY, codBarra);
+        values.put(codBarra_KEY, Integer.parseInt(codBarra));
         values.put(valorUnidade_KEY, Float.parseFloat(valorPorcao));
         values.put(porcaoUnidade_KEY, porcaoUnidade);
         values.put(porcaoQuantidade_KEY, Integer.parseInt(qtPorcao));
@@ -499,16 +539,20 @@ public class databaseHelper extends SQLiteOpenHelper {
 
     //Funcoes crud de compra
 
-    //TODO
-    public void efetuarCompra(int idUser, List<String> codBarras, float valorTotal){
-        //Abre o banco em modo escrita
+    public void efetuarCompra(String username, List<produto> produtos, float valorTotal){
+        // Abre o banco em modo escrita
         db = INSTANCE.getWritableDatabase();
 
-        //Gera uma compra
+        //Adquire id do usuario
+        Cursor cursor = db.query(USER_TABLE, new String[] {idUser_KEY, valorAberto_KEY}, nome_KEY + " = ?", new String[]{username}, null, null, null, null);
+        int idUser = cursor.getInt(0);
+        float valorAberto = cursor.getFloat(1);
+
+        // Gera uma compra
         ContentValues values = new ContentValues();
         values.put(idUser_KEY, idUser);
 
-        //Adquire data atual
+        // Adquire data atual
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date data = new Date();
         Calendar cal = Calendar.getInstance();
@@ -518,14 +562,93 @@ public class databaseHelper extends SQLiteOpenHelper {
 
         values.put(dataEfetivada_KEY, data_atual_str);
         values.put(valorTotal_KEY, valorTotal);
+
         long oid_compra = db.insert(COMPRA_TABLE, null, values);
-        //Para cada produto, adicionar oid_compra e o codBarra relativo a ele na tabela compra_produto
-        for(String codBarra : codBarras) {
+
+        // Para cada produto
+        for(produto prd : produtos) {
+            // Adicionar oid_compra e o codBarra relativo a ele na tabela compra_produto
             values = new ContentValues();
             values.put(idCompra_KEY, oid_compra);
-            values.put(codBarra_KEY, codBarra);
+            values.put(codBarra_KEY, prd.getCodBarra());
             db.insert(COMPRA_PRODUTO_TABLE, null, values);
+
+            //Abate do estoque
+            cursor = db.query(ESTOQUE_TABLE, new String[] {estoque_quantidade_KEY}, codBarra_KEY + " =? AND " + dataAquisicao_KEY + " =?", new String[] {prd.getCodBarra(), prd.getDataAquisicao()}, null, null, null, null);
+            cursor.moveToFirst();
+            values = new ContentValues();
+            values.put(estoque_quantidade_KEY, cursor.getInt(0) - 1 );
+            db.update(ESTOQUE_TABLE, values, codBarra_KEY + " =? AND " + dataAquisicao_KEY + " =?", new String[] {prd.getCodBarra(), prd.getDataAquisicao()});
+
+            //Adiciona o valor ao estrato do usuario
+            values = new ContentValues();
+            values.put(valorAberto_KEY, valorAberto+prd.getPreco());
+            db.update(USER_TABLE, values, nome_KEY + " =?", new String[] {username});
         }
+        db.close();
     }
 
+    public ArrayList<String[]> getProdutos(String idCompra){
+        Cursor cursor, cursorProduto, cursorPorcao;
+        // Abre o banco em modo escrita
+        db = INSTANCE.getWritableDatabase();
+
+        ArrayList<String[]> list = new ArrayList<>();
+
+        cursor = db.query(COMPRA_PRODUTO_TABLE, new String[] {codBarra_KEY}, idCompra_KEY + " =?", new String[] {idCompra}, null, null, null ,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String codBarra = cursor.getString(cursor.getColumnIndex(codBarra_KEY));
+
+            cursorProduto = db.query(PRODUTO_TABLE,new String[] {nomeProduto_KEY}, codBarra_KEY + " =?", new String[] {codBarra} , null, null, null, null);
+            cursorProduto.moveToFirst();
+            String nome = cursorProduto.getString(cursorProduto.getColumnIndex(nomeProduto_KEY));
+
+            cursorPorcao = db.query(PORCAO_PRODUTO_TABLE,new String[] {valorUnidade_KEY, porcaoUnidade_KEY, porcaoQuantidade_KEY}, codBarra_KEY + " =?", new String[] {codBarra} , null, null, null, null);
+            cursorPorcao.moveToFirst();
+
+            while (!cursorPorcao.isAfterLast()){
+                String valorUnidade = cursorPorcao.getString(cursorPorcao.getColumnIndex(valorUnidade_KEY));
+                String porcaoUnidade = cursorPorcao.getString(cursorPorcao.getColumnIndex(porcaoUnidade_KEY));
+                String qtPorcao = cursorPorcao.getString(cursorPorcao.getColumnIndex(porcaoQuantidade_KEY));
+
+                list.add(new String[] {codBarra, nome, valorUnidade, porcaoUnidade, qtPorcao});
+                cursorPorcao.moveToNext();
+            }
+            cursor.moveToNext();
+        }
+
+        return list;
+    }
+
+    //TODO --- Historico mensal
+    public ArrayList<String[]> historico(String username, boolean mensal){
+        Cursor cursor;
+        // Abre o banco em modo escrita
+        db = INSTANCE.getWritableDatabase();
+
+        ArrayList<String[]> list = new ArrayList<>();
+
+        if(mensal){
+            //Retorna o historico a partir do dia 15 do ultimo mes
+
+        }else{
+            //Retorna o historico geral
+            cursor = db.query(USER_TABLE, new String[] {idUser_KEY}, nome_KEY + " =?", new String[] {username}, null, null, null, null);
+            cursor.moveToFirst();
+            String idUser = cursor.getString(0);
+
+            cursor = db.query(COMPRA_TABLE, new String[] {idCompra_KEY, dataEfetivada_KEY, valorTotal_KEY}, idUser_KEY + " =?", new String[] {idUser}, null, null, null ,null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String idCompra = cursor.getString(cursor.getColumnIndex(idCompra_KEY));
+                String dataEfetivada = cursor.getString(cursor.getColumnIndex(dataEfetivada_KEY));
+                String valorTotal = cursor.getString(cursor.getColumnIndex(valorTotal_KEY));
+
+                list.add(new String[] {idCompra, dataEfetivada, valorTotal});
+                cursor.moveToNext();
+            }
+        }
+        return list;
+    }
 }

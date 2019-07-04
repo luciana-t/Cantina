@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class CadastroEstoque extends Activity {
 
     //Views
-    EditText codBarra, quantidade, valorCompra, dataValidade;
+    EditText codBarra, quantidade, valorCompra;
     ArrayAdapter<String> adapter;
     Spinner spinner;
     String spinnerValue;
@@ -39,7 +39,6 @@ public class CadastroEstoque extends Activity {
         codBarra = (EditText) findViewById(R.id.cadastro_estoque_codBarra);
         quantidade = (EditText) findViewById(R.id.cadastro_estoque_qt);
         valorCompra = (EditText) findViewById(R.id.cadastro_estoque_valor_compra);
-        dataValidade = (EditText) findViewById(R.id.cadastro_estoque_validade);
 
         //Inicializa o banco
         Log.i("BANCO_DADOS", "Adquiriu instancia do banco na classe CadastroUsuario");
@@ -57,7 +56,7 @@ public class CadastroEstoque extends Activity {
 
     public void cadastrarEstoque(View view){
         //Verifica se os campos estao preenchidos
-        if(isEmpty(codBarra) | isEmpty(quantidade) | isEmpty(valorCompra) | isEmpty(dataValidade)) {
+        if(isEmpty(codBarra) | isEmpty(quantidade) | isEmpty(valorCompra)) {
             Log.i("Cadastro_Estoque", "Campo(s) não preenchidos");
             Toast.makeText(this,"Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show();
         }else {
@@ -65,7 +64,7 @@ public class CadastroEstoque extends Activity {
             //Cadastra estoque
             String result;
             spinnerValue = spinner.getSelectedItem().toString();
-            result = crud.addEstoque(codBarra.getText().toString(), quantidade.getText().toString(), valorCompra.getText().toString(), dataValidade.getText().toString());
+            result = crud.addEstoque(codBarra.getText().toString(), quantidade.getText().toString(), valorCompra.getText().toString());
 
             //Avisa o usuario o resultado do cadastro
             Toast.makeText(this, result, Toast.LENGTH_SHORT).show();

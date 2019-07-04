@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity {
             Log.i("Validacao", "Logado como usuário comum");
             //Loga no usuario comum
             Intent intent = new Intent();
-            intent.putExtra("nome_user_logged", user.getText().toString());
+            intent.putExtra("username", user.getText().toString());
             intent.setClass(Login.this, Inicio.class);
             startActivity(intent);
         }else if(result.equals("Usuário especial")){
@@ -51,6 +51,24 @@ public class Login extends AppCompatActivity {
 
     public void cadastro(View view) {
         Intent it = new Intent(getBaseContext(), CadastroUsuario.class);
-        startActivity(it);
+        startActivityForResult(it, 1);
+        //startActivity(it);
+    }
+
+    public void onActivityResult(int codRequisicao, int codResult, Intent it){
+        if(it == null){
+            Log.i("Validacao", "Cadastro não retornou valor");
+            return;
+        }else if(codRequisicao == 1){
+
+            String username = it.getStringExtra("username");
+            //Loga no usuario comum
+            Intent intent = new Intent();
+            intent.putExtra("username", username);
+            intent.setClass(Login.this, Inicio.class);
+
+            Log.i("Validacao", "Logado como usuário comum");
+            startActivity(intent);
+        }
     }
 }
