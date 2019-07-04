@@ -1,5 +1,6 @@
 package com.luciana.cantina;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,13 @@ public class CadastroUsuario extends AppCompatActivity {
             result = crud.cadastrarUsuario(user.getText().toString(), email.getText().toString(), psswd.getText().toString(), 0);
             Toast.makeText(this,result, Toast.LENGTH_SHORT).show();
             if(result == "Usuário cadastrado com sucesso") {
+                Log.i("Cadastro_Usuario", result);
+
+                //Seta retorno
+                Intent it = new Intent();
+                it.putExtra("username", user.getText().toString());
+                setResult(1, it);
+
                 finish();
             }
         }
