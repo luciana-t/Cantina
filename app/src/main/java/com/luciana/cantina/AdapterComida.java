@@ -21,11 +21,18 @@ public class AdapterComida extends RecyclerView.Adapter<AdapterComida.ViewHolder
     static Boolean flag_par = false;
     static Boolean flag_impar = true;
     public DetailsAdapterListener onClickListener;
+    static Boolean [] tomado;
+    private int tamanhoLista;
 
     public AdapterComida(List<comida> listItems, Context context, DetailsAdapterListener listener) {
         this.listItems = listItems;
         this.context = context;
         this.onClickListener = listener;
+        this.tamanhoLista=listItems.size();
+        tomado= new Boolean[tamanhoLista];
+        for(int i=0;i<tamanhoLista;i++){
+            tomado[i]=false;
+        }
     }
 
     @Override
@@ -39,21 +46,26 @@ public class AdapterComida extends RecyclerView.Adapter<AdapterComida.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         comida listItem = listItems.get(position);
-        if(position%2!=0){
+        if(position%2!=0 && tomado[position]==false){
             if(flag_impar)
             {
                 holder.card.setBackgroundResource(R.color.amareloClaro);
                 flag_impar=false;
+                tomado[position]=true;
             }else{
                 flag_impar=true;
+                tomado[position]=true;
             }
-        }else if(flag_par)
+        }else if(flag_par && tomado[position]==false)
         {
-            Log.d("capture1", "onBindViewHolder: "+position+" "+flag_par);
             holder.card.setBackgroundResource(R.color.amareloClaro);
             flag_par=false;
+            tomado[position]=true;
         }else{
-            flag_par=true;
+            if(tomado[position]==false) {
+                flag_par = true;
+                tomado[position]=true;
+            }
         }
         holder.quantidade.setText("" +listItem.getAmount());
         holder.NomeComida.setText(listItem.getNome());
