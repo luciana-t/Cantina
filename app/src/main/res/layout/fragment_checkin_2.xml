@@ -4,10 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Checkin_2">
-
     <include
+        android:id="@+id/rv"
         layout="@layout/recycler_view_lista"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+
+
 
 </FrameLayout>

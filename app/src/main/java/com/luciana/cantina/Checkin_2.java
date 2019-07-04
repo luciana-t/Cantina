@@ -1,4 +1,5 @@
 package com.luciana.cantina;
+import java.util.Random;
 
 import android.content.Context;
 import android.net.Uri;
@@ -19,6 +20,11 @@ public class Checkin_2 extends Fragment {
     RecyclerView recyclerView;
     AdapterComida adapter;
     List<comida> listaitem;
+
+    public float ramdomPrice(){
+        Random preco = new Random();
+        return preco.nextInt(10);
+    }
 
     public void menos(int position) {
         int aux = listaitem.get(position).getAmount();
@@ -49,40 +55,40 @@ public class Checkin_2 extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
         listaitem.add(
-                new comida("burrito")
+                new comida("burrito", ramdomPrice())
         );
         listaitem.add(
-                new comida("cafe")
+                new comida("cafe", ramdomPrice())
         );
         listaitem.add(
-                new comida("bixcoito")
+                new comida("bixcoito", ramdomPrice())
         );
         listaitem.add(
-                new comida("bulacha")
+                new comida("bulacha", ramdomPrice())
         );
         listaitem.add(
-                new comida("leite")
+                new comida("leite", ramdomPrice())
         );
         listaitem.add(
-                new comida("banana")
+                new comida("banana", ramdomPrice())
         );
         listaitem.add(
-                new comida("maca")
+                new comida("maca", ramdomPrice())
         );
         listaitem.add(
-                new comida("saladaMista")
+                new comida("saladaMista", ramdomPrice())
         );
         listaitem.add(
-                new comida("pera")
+                new comida("pera", ramdomPrice())
         );
         listaitem.add(
-                new comida("alho")
+                new comida("alho", ramdomPrice())
         );
         listaitem.add(
-                new comida("n sei")
+                new comida("n sei", ramdomPrice())
         );
         listaitem.add(
-                new comida("criatividade 0")
+                new comida("criatividade 0", ramdomPrice())
         );
 
         adapter = new AdapterComida(listaitem, getActivity(), new AdapterComida.DetailsAdapterListener() {

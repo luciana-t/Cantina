@@ -78,5 +78,8 @@ public class Inicio extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "box creation");
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

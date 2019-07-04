@@ -68,7 +68,7 @@ public class AdapterComida extends RecyclerView.Adapter<AdapterComida.ViewHolder
             }
         }
         holder.quantidade.setText("" +listItem.getAmount());
-        holder.NomeComida.setText(listItem.getNome());
+        holder.NomeComida.setText(listItem.getNome()+" R$ "+ listItem.getPreco());
     }
 
     @Override
