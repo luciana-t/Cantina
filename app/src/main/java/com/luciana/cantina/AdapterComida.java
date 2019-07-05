@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -67,6 +68,7 @@ public class AdapterComida extends RecyclerView.Adapter<AdapterComida.ViewHolder
                 tomado[position]=true;
             }
         }
+        holder.fotocomida.setImageResource(listItem.getDrawableID());
         holder.quantidade.setText("" +listItem.getAmount());
         holder.NomeComida.setText(listItem.getNome()+" R$ "+ listItem.getPreco());
     }
@@ -77,6 +79,7 @@ public class AdapterComida extends RecyclerView.Adapter<AdapterComida.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public ImageView fotocomida;
         public TextView NomeComida;
         public CardView card;
         public Button btmenos;
@@ -86,6 +89,7 @@ public class AdapterComida extends RecyclerView.Adapter<AdapterComida.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
             card = itemView.findViewById(R.id.cardComent);
+            fotocomida = (ImageView) itemView.findViewById(R.id.imagemComida);
             NomeComida = (TextView) itemView.findViewById(R.id.nomeComida);
             btmenos = (Button) itemView.findViewById(R.id.bt_sub_card);
             quantidade = (EditText) itemView.findViewById(R.id.qtd);

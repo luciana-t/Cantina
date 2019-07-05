@@ -55,40 +55,40 @@ public class Checkin_2 extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
         listaitem.add(
-                new comida("burrito", ramdomPrice())
+                new comida("Taco", ramdomPrice(), R.drawable.taco)
         );
         listaitem.add(
-                new comida("cafe", ramdomPrice())
+                new comida("Cafe", ramdomPrice(), R.drawable.coffee)
         );
         listaitem.add(
-                new comida("bixcoito", ramdomPrice())
+                new comida("Biscoito", ramdomPrice(),R.drawable.cookies)
         );
         listaitem.add(
-                new comida("bulacha", ramdomPrice())
+                new comida("Pizza", ramdomPrice(), R.drawable.pizza)
         );
         listaitem.add(
-                new comida("leite", ramdomPrice())
+                new comida("Leite", ramdomPrice(),R.drawable.milk)
         );
         listaitem.add(
-                new comida("banana", ramdomPrice())
+                new comida("Banana", ramdomPrice(),R.drawable.banana)
         );
         listaitem.add(
-                new comida("maca", ramdomPrice())
+                new comida("Maca", ramdomPrice(),R.drawable.apple)
         );
         listaitem.add(
-                new comida("saladaMista", ramdomPrice())
+                new comida("saladaMista", ramdomPrice(),R.drawable.salad)
         );
         listaitem.add(
-                new comida("pera", ramdomPrice())
+                new comida("bolo", ramdomPrice(),R.drawable.cake)
         );
         listaitem.add(
-                new comida("alho", ramdomPrice())
+                new comida("Cebola", ramdomPrice(),R.drawable.onion)
         );
         listaitem.add(
-                new comida("n sei", ramdomPrice())
+                new comida("cenoura", ramdomPrice(),R.drawable.carrot)
         );
         listaitem.add(
-                new comida("criatividade 0", ramdomPrice())
+                new comida("Abacate", ramdomPrice(), R.drawable.avocado)
         );
 
         adapter = new AdapterComida(listaitem, getActivity(), new AdapterComida.DetailsAdapterListener() {

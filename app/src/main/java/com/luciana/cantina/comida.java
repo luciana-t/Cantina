@@ -1,10 +1,11 @@
 package com.luciana.cantina;
 
 public class comida{
-    public comida(String nome, float price) {
+    public comida(String nome, float price, int draw) {
         this.nome = nome;
         this.preco = price;
         this.amount=0;
+        this.drawableID=draw;
     }
 
     public float getPreco() {
@@ -14,6 +15,16 @@ public class comida{
     public void setPreco(float preco) {
         this.preco = preco;
     }
+
+    public int getDrawableID() {
+        return drawableID;
+    }
+
+    public void setDrawableID(int drawableID) {
+        this.drawableID = drawableID;
+    }
+
+    public int drawableID;
 
     public float preco;
 
