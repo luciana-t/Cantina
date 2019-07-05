@@ -12,12 +12,17 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class Extrato_3 extends Fragment {
     RecyclerView recyclerView;
     AdapterCompra adapter;
     List<compra> listaitem;
+    public float ramdomPrice(){
+        Random preco = new Random();
+        return preco.nextInt(10);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,31 +35,85 @@ public class Extrato_3 extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listaitem.add(
-                new compra("11/06/2019", "R$ 3,75")
+                new compra("05/07/2019", ramdomPrice()+"")
         );
         listaitem.add(
-                new compra("10/06/2019", "R$ 2,50")
+                new compra("05/07/2019", ramdomPrice()+"")
         );
         listaitem.add(
-                new compra("09/06/2019", "R$ 1,50")
+                new compra("05/07/2019", ramdomPrice()+"")
         );
         listaitem.add(
-                new compra("08/06/2019", "R$ 4,50")
+                new compra("04/07/2019", ramdomPrice()+"")
         );
         listaitem.add(
-                new compra("07/06/2019", "R$ 22,00")
+                new compra("04/07/2019", ramdomPrice()+"")
         );
         listaitem.add(
-                new compra("06/06/2019", "R$ 11,00")
+                new compra("03/07/2019", ramdomPrice()+"")
         );
         listaitem.add(
-                new compra("05/06/2019", "R$ 5,00")
+                new compra("03/07/2019", ramdomPrice()+"")
         );
         listaitem.add(
-                new compra("04/06/2019", "R$ 7,00")
+                new compra("03/07/2019", ramdomPrice()+"")
         );
         listaitem.add(
-                new compra("03/06/2019", "R$ 8,50")
+                new compra("02/07/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("02/07/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("01/07/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("01/07/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("01/07/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("01/07/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("30/06/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("29/06/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("02/07/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("02/07/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("11/06/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("10/06/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("09/06/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("08/06/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("07/06/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("06/06/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("05/06/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("04/06/2019", ramdomPrice()+"")
+        );
+        listaitem.add(
+                new compra("03/06/2019", ramdomPrice()+"")
         );
         adapter = new AdapterCompra(listaitem, getActivity());
         recyclerView.setAdapter(adapter);

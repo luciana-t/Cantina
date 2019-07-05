@@ -32,9 +32,9 @@ public class AdapterCompra extends RecyclerView.Adapter<AdapterCompra.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         compra listItem = listItems.get(position);
-        if(position%2!=0){
+        /*if(position%2!=0){
             holder.card.setBackgroundResource(R.color.amareloClaro);
-        }
+        }*/
         holder.DataCompra.setText(listItem.getDataCompra());
         holder.price.setText(listItem.getPreco());
     }

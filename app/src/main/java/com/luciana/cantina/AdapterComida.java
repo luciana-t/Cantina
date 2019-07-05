@@ -47,7 +47,7 @@ public class AdapterComida extends RecyclerView.Adapter<AdapterComida.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         comida listItem = listItems.get(position);
-        if(position%2!=0 && tomado[position]==false){
+       /* if(position%2!=0 && tomado[position]==false){
             if(flag_impar)
             {
                 holder.card.setBackgroundResource(R.color.amareloClaro);
@@ -67,7 +67,7 @@ public class AdapterComida extends RecyclerView.Adapter<AdapterComida.ViewHolder
                 flag_par = true;
                 tomado[position]=true;
             }
-        }
+        }*/
         holder.fotocomida.setImageResource(listItem.getDrawableID());
         holder.quantidade.setText("" +listItem.getAmount());
         holder.NomeComida.setText(listItem.getNome()+" R$ "+ listItem.getPreco());

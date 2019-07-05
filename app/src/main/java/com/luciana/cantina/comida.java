@@ -1,13 +1,18 @@
 package com.luciana.cantina;
 
 public class comida{
+
+    public int drawableID;
+    public float preco;
+    private String nome;
+    private int amount;
+
     public comida(String nome, float price, int draw) {
         this.nome = nome;
         this.preco = price;
         this.amount=0;
         this.drawableID=draw;
     }
-
     public float getPreco() {
         return preco;
     }
@@ -23,11 +28,6 @@ public class comida{
     public void setDrawableID(int drawableID) {
         this.drawableID = drawableID;
     }
-
-    public int drawableID;
-
-    public float preco;
-
     public String getNome() {
         return nome;
     }
@@ -36,7 +36,6 @@ public class comida{
         this.nome = nome;
     }
 
-    private String nome;
 
     public int getAmount() {
         return amount;
@@ -45,7 +44,4 @@ public class comida{
     public void setAmount(int amount) {
         this.amount = amount;
     }
-
-    private int amount;
-
 }
